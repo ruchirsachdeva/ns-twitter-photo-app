@@ -1,5 +1,9 @@
 <ActionBar title="Location">
     <ActionItem text="{{ latitude}},{{longitude}}" android.position="actionBar"></ActionItem>
+    <ActionItem text="Scan photo"  [nsRouterLink]="['/home']"
+                android.position="popup"></ActionItem>
+    <ActionItem text="Local Storage"  [nsRouterLink]="['/storage']"
+                android.position="popup"></ActionItem>
 </ActionBar>
 
 <GridLayout>

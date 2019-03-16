@@ -16,12 +16,14 @@ import {ToastService} from './service/messaging/toast.service.tns';
 import { MapComponent } from './map/map.component';
 import {StorageService} from './service/storage.service';
 import * as mobileStorage from 'nativescript-localstorage';
+import { LocalStorageComponent } from './local-storage/local-storage.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         MapComponent,
+        LocalStorageComponent,
     ],
     imports: [
         NativeScriptModule,

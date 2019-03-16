@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 
 import {HomeComponent} from './home/home.component';
 import {MapComponent} from './map/map.component';
+import {LocalStorageComponent} from './local-storage/local-storage.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -12,5 +13,9 @@ export const routes: Routes = [
     {
         path: 'map',
         component: MapComponent,
+    },
+    {
+        path: 'storage',
+        component: LocalStorageComponent,
     },
 ];

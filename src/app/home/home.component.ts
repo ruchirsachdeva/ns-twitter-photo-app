@@ -10,6 +10,8 @@ import * as imageModule from 'tns-core-modules/ui/image';
 import {fromAsset} from 'tns-core-modules/image-source';
 import {Router} from '@angular/router';
 import {DisplayTweet} from '../display-tweet';
+import {StorageService} from '../service/storage.service';
+import {UserData} from '../user-data';
 
 @Component({
     selector: 'app-home',
@@ -28,7 +30,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private myObservableArray: ObservableArray<DisplayTweet> = new ObservableArray();
 
     constructor(private location: Location, private authService: TwitterService, private geoLocationService: LocationService,
-                private toast: ToastService, private router: Router) {
+                private toast: ToastService, private router: Router, private storage: StorageService) {
         this.input = {
             latitude: 0,
             longitude: 0
@@ -126,8 +128,11 @@ export class HomeComponent implements OnInit, OnDestroy {
             .subscribe((response: Tweet) => {
                 this.toast.showSuccess('Image successfully uploaded on twitter ', 'Upload successful');
                 this.getTweets();
-                console.log('data =  ' + response);
+                const responseTweet = this.getDisplayTweet(response);
+                console.log('data =  ' + responseTweet);
+                this.addToLocalStorage(responseTweet.url);
             });
+
     }
 
     private photoPromise() {
@@ -170,5 +175,24 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     public goBack() {
         this.location.back();
+    }
+
+    private addToLocalStorage(twitter_url: string) {
+        const userdata: UserData = {
+            url: twitter_url,
+            status: this.status,
+            latitude: this.input.latitude,
+            longitude: this.input.longitude,
+            time: new Date()
+        };
+        let toStore: UserData[] = [];
+        const storedUserData = this.storage.getItem('userData');
+        if (storedUserData) {
+            toStore = JSON.parse(storedUserData);
+        }
+        toStore.push(userdata);
+        console.log('localstorage');
+        console.log(toStore);
+        this.storage.setItem('userData', JSON.stringify(toStore));
     }
 }

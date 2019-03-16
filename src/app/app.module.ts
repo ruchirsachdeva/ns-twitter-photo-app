@@ -13,12 +13,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastService} from './service/messaging/toast.service';
 import { MapComponent } from './map/map.component';
 import {StorageService} from './service/storage.service';
+import { LocalStorageComponent } from './local-storage/local-storage.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         MapComponent,
+        LocalStorageComponent,
     ],
     imports: [
         BrowserModule,

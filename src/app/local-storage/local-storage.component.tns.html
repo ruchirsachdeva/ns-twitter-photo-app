@@ -1,0 +1,30 @@
+<ActionBar title="Local storage">
+    <ActionItem text="{{input.latitude}},{{input.longitude}}" android.position="actionBar"></ActionItem>
+    <ActionItem text="My map" [nsRouterLink]="['/map']"
+                android.position="popup"></ActionItem>
+    <ActionItem text="Scan photo"  [nsRouterLink]="['/home']"
+                android.position="popup"></ActionItem>
+</ActionBar>
+
+<GridLayout marginTop="0" rows="*" columns="*">
+    <ScrollView>
+        <ListView marginTop="100" col="0" row="4" [items]="userData" class="list-group">
+            <ng-template let-dataitem="item" let-i="index" let-third="third" let-header="header"
+                         let-footer="footer">
+                <GridLayout [class.third]="third" [class.header]="header" [class.footer]="footer"
+                            class="list-group-item">
+                    <StackLayout>
+                        <Image src="{{dataitem.url}}" stretch="none"></Image>
+                        <Label text="Status : {{dataitem.status}}" android:class="label-item" textWrap="true"></Label>
+                        <Label text="Latitude : {{dataitem.latitude}}" android:class="label-item" textWrap="true"></Label>
+                        <Label text="Longitude : {{dataitem.longitude}}" android:class="label-item" textWrap="true"></Label>
+                        <Label text="Date/Time : {{dataitem.time}}" android:class="label-item" textWrap="true"></Label>
+                        <StackLayout class="hr-light"></StackLayout>
+                    </StackLayout>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </ScrollView>
+</GridLayout>
+
+
