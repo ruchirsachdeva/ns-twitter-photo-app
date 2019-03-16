@@ -1,0 +1,20 @@
+<ActionBar title="Location">
+    <ActionItem text="{{ input.latitude}},{{input.longitude}}" android.position="actionBar"></ActionItem>
+    <ActionItem text="Scan photo" (tap)="photo()" android.systemIcon="ic_menu_share"
+                android.position="actionBarIfRoom"></ActionItem>
+</ActionBar>
+
+<GridLayout rows="*" columns="*">
+    <ListView col="0" row="1" [items]="myObservableArray" class="list-group">
+        <ng-template let-dataitem="item" let-i="index" let-third="third" let-header="header" let-footer="footer">
+            <GridLayout [class.third]="third" [class.header]="header" [class.footer]="footer" class="list-group-item">
+                <StackLayout>
+                    <Image src="{{dataitem}}" stretch="none"></Image>
+                    <Label [text]="dataitem" android:class="label-item"></Label>
+                </StackLayout>
+            </GridLayout>
+        </ng-template>
+    </ListView>
+
+</GridLayout>
+
