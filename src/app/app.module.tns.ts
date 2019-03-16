@@ -13,11 +13,15 @@ import {NativeScriptFormsModule} from 'nativescript-angular/forms';
 import {NativeScriptHttpClientModule} from 'nativescript-angular/http-client';
 import {LocationService} from './service/geo-location/location.service.tns';
 import {ToastService} from './service/messaging/toast.service.tns';
+import { MapComponent } from './map/map.component';
+import {StorageService} from './service/storage.service';
+import * as mobileStorage from 'nativescript-localstorage';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
+        MapComponent,
     ],
     imports: [
         NativeScriptModule,
@@ -26,6 +30,10 @@ import {ToastService} from './service/messaging/toast.service.tns';
         NativeScriptHttpClientModule
     ],
     providers: [
+        {
+            provide: StorageService,
+            useValue: mobileStorage
+        },
         LocationService,
         ToastService,
     ],

@@ -11,11 +11,14 @@ import {LocationService} from './service/geo-location/location.service';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastService} from './service/messaging/toast.service';
+import { MapComponent } from './map/map.component';
+import {StorageService} from './service/storage.service';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
+        MapComponent,
     ],
     imports: [
         BrowserModule,
@@ -25,7 +28,7 @@ import {ToastService} from './service/messaging/toast.service';
         FormsModule,
         ToastrModule.forRoot(),
     ],
-    providers: [LocationService, ToastService],
+    providers: [LocationService, ToastService, StorageService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

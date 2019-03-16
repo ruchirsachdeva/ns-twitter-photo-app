@@ -8,6 +8,8 @@ import {ToastService} from '../service/messaging/toast.service';
 import * as camera from 'nativescript-camera';
 import * as imageModule from 'tns-core-modules/ui/image';
 import {fromAsset} from 'tns-core-modules/image-source';
+import {Router} from '@angular/router';
+import {DisplayTweet} from '../display-tweet';
 
 @Component({
     selector: 'app-home',
@@ -22,10 +24,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     ids = [];
     timer;
     since = '';
-    private myObservableArray: ObservableArray<String> = new ObservableArray();
+    status = 'Lnu twitter app default status';
+    private myObservableArray: ObservableArray<DisplayTweet> = new ObservableArray();
 
     constructor(private location: Location, private authService: TwitterService, private geoLocationService: LocationService,
-                private toast: ToastService) {
+                private toast: ToastService, private router: Router) {
         this.input = {
             latitude: 0,
             longitude: 0
@@ -45,6 +48,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
     }
 
+    map() {
+        this.router.navigate(['/map']);
+    }
+
 
     getTweets() {
         this.myObservableArray = new ObservableArray();
@@ -60,7 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                     this.tweets.unshift(tweet);
                 }
                 if (this.hasPhoto(tweet)) {
-                    this.myObservableArray.push(this.getPhoto(tweet));
+                    this.myObservableArray.push(this.getDisplayTweet(tweet));
                 }
             });
             this.since = this.tweets[0].id_str;
@@ -85,11 +92,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         return false;
     }
 
-    public getPhoto(tweet: Tweet) {
+    public getDisplayTweet(tweet: Tweet): DisplayTweet {
         if (tweet.entities.media
             && tweet.entities.media.length
             && tweet.entities.media[0].type === 'photo') {
-            return tweet.entities.media[0].media_url_https;
+            const media_url = tweet.entities.media[0].media_url_https;
+            const displayTweet = {
+                url: media_url,
+                text: tweet.full_text
+            };
+            return displayTweet;
         }
         return null;
     }
@@ -101,10 +113,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
     }
 
+    private getStatus() {
+        return 'Latitude = ' + this.input.latitude + ' , Longitude = ' + this.input.longitude + ' , Status = ' + this.status;
+    }
+
     private publish(base64) {
         console.log('base64');
         console.log(base64);
-        this.authService.media(base64)
+
+
+        this.authService.media(base64, this.getStatus())
             .subscribe((response: Tweet) => {
                 this.toast.showSuccess('Image successfully uploaded on twitter ', 'Upload successful');
                 this.getTweets();

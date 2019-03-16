@@ -1,20 +1,43 @@
-<ActionBar title="Location">
-    <ActionItem text="{{ input.latitude}},{{input.longitude}}" android.position="actionBar"></ActionItem>
-    <ActionItem text="Scan photo" (tap)="photo()" android.systemIcon="ic_menu_share"
-                android.position="actionBarIfRoom"></ActionItem>
+<ActionBar title="Twitter app">
+    <ActionItem text="{{input.latitude}},{{input.longitude}}" android.position="actionBar"></ActionItem>
+    <ActionItem text="My map" (tap)="map()" android.systemIcon="ic_menu_share"
+                android.position="popup"></ActionItem>
 </ActionBar>
 
-<GridLayout rows="*" columns="*">
-    <ListView col="0" row="1" [items]="myObservableArray" class="list-group">
-        <ng-template let-dataitem="item" let-i="index" let-third="third" let-header="header" let-footer="footer">
-            <GridLayout [class.third]="third" [class.header]="header" [class.footer]="footer" class="list-group-item">
-                <StackLayout>
-                    <Image src="{{dataitem}}" stretch="none"></Image>
-                    <Label [text]="dataitem" android:class="label-item"></Label>
+<GridLayout marginTop="0"  rows="*" columns="*">
+    <ScrollView>
+        <StackLayout >
+            <StackLayout class="form" padding="15" backgroundColor="#FFFFFF">
+                <StackLayout class="input-field">
+                    <Label text="Status" class="label font-weight-bold m-b-5"></Label>
+                    <TextField class="input" [(ngModel)]="status"></TextField>
+                    <Button class="btn btn-primary" text="Scan photo" (tap)="photo()"></Button>
+
+                    <StackLayout class="hr-light"></StackLayout>
                 </StackLayout>
-            </GridLayout>
-        </ng-template>
-    </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
 
 </GridLayout>
+
+<GridLayout marginTop="100"  rows="*" columns="*">
+
+    <ScrollView>
+        <ListView marginTop="100" col="0" row="4" [items]="myObservableArray" class="list-group">
+            <ng-template let-dataitem="item" let-i="index" let-third="third" let-header="header" let-footer="footer">
+                <GridLayout [class.third]="third" [class.header]="header" [class.footer]="footer" class="list-group-item">
+                    <StackLayout>
+                        <Image src="{{dataitem.url}}" stretch="none"></Image>
+                        <Label [text]="dataitem.text" android:class="label-item" textWrap="true"></Label>
+                    </StackLayout>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </ScrollView>
+
+
+</GridLayout>
+
 

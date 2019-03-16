@@ -16,8 +16,12 @@ export class LocationService {
     }
 
     private enableLocationTap() {
+        console.log('enableLocationTap');
         Geolocation.isEnabled().then(function (isEnabled) {
+            console.log('Geolocation.isEnabled-????');
             if (!isEnabled) {
+                console.log('Geolocation.isEnabled----->true');
+
                 Geolocation.enableLocationRequest().then(function () {
                 }, function (e) {
                     console.log('Error: ' + (e.message || e));
@@ -30,6 +34,7 @@ export class LocationService {
 
 
     public getGeoLocation(): any {
-       return getCurrentLocation({desiredAccuracy: 3, updateDistance: 10, maximumAge: 20000, timeout: 20000});
+        console.log('getGeoLocation');
+        return getCurrentLocation({desiredAccuracy: 3, updateDistance: 10, maximumAge: 20000, timeout: 20000});
     }
 }

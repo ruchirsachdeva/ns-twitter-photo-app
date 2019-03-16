@@ -28,6 +28,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
 
+			
         <activity
                 android:name="com.tns.NativeScriptActivity"
                 android:label="@string/title_activity_kimera"
@@ -42,5 +43,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.tns.ErrorReportActivity"/>
+		
+		<meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/nativescript_google_maps_api_key" />	
     </application>
 </manifest>

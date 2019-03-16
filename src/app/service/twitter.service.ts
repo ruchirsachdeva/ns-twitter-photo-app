@@ -13,10 +13,11 @@ export class TwitterService {
     constructor(private http: HttpClient) {
     }
 
-    media(b64content: any): Observable<Tweet> {
+    media(b64content: any, status: any): Observable<Tweet> {
 
         const req = {
-            b64content: b64content
+            b64content: b64content,
+            status: status
         };
 
         console.log('posting');
