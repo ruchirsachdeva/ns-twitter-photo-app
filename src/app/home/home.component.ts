@@ -130,7 +130,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.getTweets();
                 const responseTweet = this.getDisplayTweet(response);
                 console.log('data =  ' + responseTweet);
-                this.addToLocalStorage(responseTweet.url);
+                this.addToLocalStorage(responseTweet.url, this.status, this.input.latitude, this.input.longitude, new Date());
             });
 
     }
@@ -177,13 +177,13 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.location.back();
     }
 
-    private addToLocalStorage(twitter_url: string) {
+    private addToLocalStorage(twitter_url: string, status, latitude, longitude, date) {
         const userdata: UserData = {
             url: twitter_url,
-            status: this.status,
-            latitude: this.input.latitude,
-            longitude: this.input.longitude,
-            time: new Date()
+            status: status,
+            latitude: latitude,
+            longitude: longitude,
+            time: date
         };
         let toStore: UserData[] = [];
         const storedUserData = this.storage.getItem('userData');
